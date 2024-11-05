@@ -1,8 +1,7 @@
 import streamlit as st
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
-# Initialize Translator
-translator = Translator()
+
 
 # Language dictionary
 LANGUAGES = {
@@ -118,7 +117,7 @@ LANGUAGES = {
 }
 
 # Streamlit UI
-st.title("Language Translator App")
+st.title("MetaBiz Language Translator App")
 
 # User Input
 text_to_translate = st.text_area("Enter text to translate:")
@@ -130,8 +129,9 @@ if st.button("Translate"):
         # Get the language code from the selected language name
         target_language_code = list(LANGUAGES.keys())[list(LANGUAGES.values()).index(target_language_name)]
         
-        translated = translator.translate(text_to_translate, dest=target_language_code)
+        # Use GoogleTranslator from deep-translator
+        translated = GoogleTranslator(source='auto', target=target_language_code).translate(text_to_translate)
         st.write("**Translated Text:**")
-        st.write(translated.text)
+        st.write(translated)
     else:
         st.write("Please enter text to translate.")
